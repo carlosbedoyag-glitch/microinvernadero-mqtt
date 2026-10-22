@@ -22,9 +22,9 @@ La idea es comparar cómo se comporta el sistema al procesar la misma carga con:
 | sim_ambiente_01     | -----------------> | Broker Mosquitto     |
 | (sensor ambiente)    |                    | localhost:1883       |
 +---------------------+                    +----------------------+
-         |                                               |
-         | publish                                       | subscribe
-         v                                               v
+          |                                               |
+          | publish                                       | subscribe
+          v                                               v
 +---------------------+                    +---------------------------+
 | sim_vib_01          | -----------------> | suscriptor_analizador      |
 | (sensor vibración)   |                    | (valida, procesa y mide)  |
@@ -50,22 +50,14 @@ La idea es comparar cómo se comporta el sistema al procesar la misma carga con:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate    # Linux/macOS
-# o en Windows:
-# .venv\Scripts\activate
+source .venv/bin/activate
+# En Windows PowerShell:
+# .\.venv\Scripts\Activate.ps1
 
 pip install -r requirements.txt
 ```
 
 ## Iniciar el broker
-
-### Linux / macOS
-
-```bash
-mosquitto -v
-```
-
-### Windows
 
 ```bash
 mosquitto -v
@@ -146,7 +138,7 @@ microinvernadero-mqtt/
 
 ## Observación importante
 
-Este benchmark demuestra que, con tareas pequeñas y con overhead de coordinación, el modo paralelo no siempre mejora el rendimiento. En este proyecto, el costo de crear procesos, serializar datos y sincronizar resultados puede superar el beneficio computacional real.
+Este benchmark demuestra que, con tareas pequeñas y con overhead de coordinación, el modo paralelo no siempre mejora el rendimiento. En este proyecto, el costo de crear procesos, serializar datos y sincronizar resultados puede compensar la ventaja de distribuir trabajo. Por eso, comparar ambos modos es útil para elegir la estrategia correcta.
 
 ## Licencia
 
