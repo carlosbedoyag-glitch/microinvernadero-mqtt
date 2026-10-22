@@ -1,19 +1,19 @@
 # Microinvernadero MQTT
 
-Proyecto para simular sensores de ambiente y vibración en un microinvernadero, publicar los datos con MQTT y analizar el comportamiento del procesamiento en modos secuencial y paralelo.
+Proyecto para simular sensores de ambiente y vibración en un microinvernadero, publicar los datos mediante MQTT y evaluar el rendimiento del procesamiento en modos secuencial y paralelo.
 
 ## Descripción
 
-Este proyecto tiene tres componentes principales:
+Este proyecto está compuesto por tres módulos principales:
 
 - `sim_ambiente_01.py`: publica datos de temperatura, humedad y luz.
 - `sim_vib_01.py`: genera ventanas de vibración con 100 muestras cada una.
 - `suscriptor_analizador.py`: recibe y valida los mensajes, analiza la vibración y calcula métricas de rendimiento.
 
-La idea es comparar cómo se comporta el sistema al procesar la misma carga con:
+La idea principal es comparar el comportamiento del sistema al procesar la misma carga bajo dos estrategias:
 
 - procesamiento secuencial
-- procesamiento paralelo usando `ProcessPoolExecutor`
+- procesamiento paralelo con `ProcessPoolExecutor`
 
 ## Arquitectura
 
@@ -86,9 +86,9 @@ python sim_vib_01.py
 python suscriptor_analizador.py
 ```
 
-## Configuración del modo
+## Configuración del modo de procesamiento
 
-En `suscriptor_analizador.py` puedes cambiar el modo de procesamiento:
+En `suscriptor_analizador.py` puedes cambiar el modo de ejecución:
 
 ```python
 MODO_PROCESAMIENTO = "SECUENCIAL"
@@ -106,7 +106,7 @@ VENTANAS_POR_CORRIDA = 10
 
 ## Métricas calculadas
 
-Por cada ventana se calcula:
+Por cada ventana se evalúan:
 
 - RMS
 - valor pico máximo
@@ -117,7 +117,7 @@ Por cada corrida (10 ventanas):
 - promedio de tiempo
 - lista de tiempos individuales
 
-Al finalizar la prueba:
+Al finalizar la prueba se calculan:
 
 - tiempo medio total
 - mediana total
@@ -138,7 +138,7 @@ microinvernadero-mqtt/
 
 ## Observación importante
 
-Este benchmark demuestra que, con tareas pequeñas y con overhead de coordinación, el modo paralelo no siempre mejora el rendimiento. En este proyecto, el costo de crear procesos, serializar datos y sincronizar resultados puede compensar la ventaja de distribuir trabajo. Por eso, comparar ambos modos es útil para elegir la estrategia correcta.
+Este benchmark demuestra que, con tareas pequeñas y con overhead de coordinación, el modo paralelo no siempre mejora el rendimiento. En este proyecto, el costo de crear procesos, serializar datos y sincronizar resultados puede compensar el beneficio de distribuir el trabajo. Por ello, comparar ambos enfoques resulta clave para seleccionar la estrategia más adecuada.
 
 ## Licencia
 
